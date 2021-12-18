@@ -1,5 +1,6 @@
 # CS120 Introduction to Embedded Systems Laboratory Assignments
 Name: Vy Vo
+
 Professor: Philip Brisk
 
 ## Lab 1
