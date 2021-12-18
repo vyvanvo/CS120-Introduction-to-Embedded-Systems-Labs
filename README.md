@@ -138,4 +138,34 @@ PORTC = cntavail;).
 
     Hint: You'll probably want to introduce another synchSM that polls the buttons and sets a global variable storing the current frequency that in turn is read by the frequency generator task. 
 
+## Lab 11
+1. Modify the keypad code to be in an SM task. Then, modify the keypad SM to utilize the simple task scheduler format. All code from here on out should use the task scheduler. 
 
+2. Use the LCD* code, along with a button and/or time delay to display the message "CS120B is Legend... wait for it DARY!" The string will not fit on the display all at once, so you will need to come up with some way to paginate or scroll the text.
+
+Note: If your LCD is exceptionally dim, adjust the resistance provided by the potentiometer connected to Pin #3.
+
+*in a previous lab, the LCD was controlled through PORTC and PORTD, the provided header files should be set to use PORTA, PORTB, and/or PORTD (so that PORTC can continue to be used for the keypad).
+
+3. Combine the functionality of the keypad and LCD so when keypad is pressed and released, the character of the button pressed is displayed on the LCD, and stays displayed until a different button press occurs (May be accomplished with two tasks: LCD interface & modified test harness).
+
+4. (Challenge) Notice that you can visually see the LCD refresh each character (display a lengthy string then update to a different lengthy string). Design a system where a single character is updated in the displayed string rather than the entire string itself. Use the functions provided in “io.c”.
+
+An example behavior would be to initially display a lengthy string, such as “Congratulations!”. The first keypad button pressed changes the first character ‘C’ to the button pressed. The second keypad press changes the second character to the second button pressed, etc. No refresh should be observable during the character update.
+
+5. (Challenge) Using both rows of the LCD display, design a game where a player controlled character avoids oncoming obstacles. Three buttons are used to operate the game. 
+
+    Criteria:
+    - Use the cursor as the player controlled character.
+    - Choose a character like ‘#’ etc. to represent the obstacles.
+    - One button is used to pause/start the game.
+    - Two buttons are used to control the player character. One button moves the player to the top row. The other button moves the player to the bottom row.
+    - A character position change should happen immediately after pressing the button.
+    - Minimum requirement is to have one obstacle on the top row and one obstacle on the bottom row. You may add more if you are feeling up to the challenge.
+    - Choose a reasonable movement speed for the obstacles (100ms or more).
+    - If an obstacle collides with the player, the game is paused, and a “game over” message is displayed. The game is restarted when the pause button is pressed.
+
+    Hints:
+    - Due to the noticeable refresh rate observed when using LCD_DisplayString, instead use the combination of LCD_Cursor and LCD_WriteData to keep noticeable refreshing to a minimum.
+    - LCD cursor positions range between 1 and 32 (NOT 0 and 31).
+    - As always, dividing the design into multiple, smaller synchSMs can result in a cleaner, simpler design.
